@@ -1,0 +1,67 @@
+.patientdata-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem;
+    font-family: "anta";
+}
+.patientdata-heading{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.patientdata-details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 1rem;
+}
+.form-fields{
+    display: flex;
+    gap:1rem;
+}
+.form-field{
+    display: flex;
+    flex-direction: column;
+}
+.form-field label{
+    display: block;
+    margin: 14px 0 8px;
+    color: #0d0c22;
+}
+.form-field .form-input{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 28px;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 250px;
+    height: 56px;
+    padding: 18px 20px;
+    border-radius: 12px;
+    outline: none;
+    background-color: #fff;
+    color: #0d0c22;
+    appearance: none;
+    font-feature-settings: 'ss01';
+    border: 2px solid #e7e7e9;
+    width: 100%;
+    margin-right: 8px;
+}
+.gender-selection{
+    display: flex;
+    gap: 1rem;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.form-field select{
+    padding: 18px 20px;
+    font-family: inherit;
+    font-size: 16px;
+}

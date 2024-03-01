@@ -1,0 +1,43 @@
+.navigation{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    /* padding-bottom: 1rem; */
+    border-bottom: 1px solid wheat;
+    font-family: "Anta";
+}
+.nav-options{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    
+}
+.navigation a.active{
+    color: black;
+    text-decoration: underline;
+}
+.nav-options h1{
+    font-size: 20px;
+    font-weight: 500;
+}
+.nav-options .logo{
+    font-size: 24px;
+    font-weight: bold;
+    margin:0 12px;
+}
+.nav-auth{
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.login--btn{
+    background-color: white;
+    color: black;
+    border: 1px solid wheat;
+}

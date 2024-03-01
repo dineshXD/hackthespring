@@ -1,0 +1,42 @@
+.orders{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-family: "Anta";
+ 
+}
+.order{
+    width: 100vw;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.order-heading{
+    text-align: center;
+    border-bottom: 1px solid wheat;
+    padding:1rem;
+}
+.order-data{
+    border-bottom: 1px solid wheat;
+}
+.order-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem;
+    text-align: center;
+    
+}
+.patient-contact{
+    display: flex;
+    gap: 1rem;
+}
+.order-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
