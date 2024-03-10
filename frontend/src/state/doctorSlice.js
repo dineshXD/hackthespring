@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  addAvailabilityAPI,
   createDoctorProfileAPI,
   getAllDoctorsAPI,
   getDoctorAPI,
@@ -39,8 +40,20 @@ export const getAllDoctors = createAsyncThunk(
 export const getDoctorByID = createAsyncThunk(
   "doctorbyID",
   async ({ id }, { rejectWithValue }) => {
+    console.log(id);
     try {
       const response = await getDoctorAPI({ id });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+export const addAvailability = createAsyncThunk(
+  "add-availability",
+  async ({ availability }, { rejectWithValue }) => {
+    try {
+      const response = await addAvailabilityAPI({ availability });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -50,11 +63,12 @@ export const getDoctorByID = createAsyncThunk(
 export const doctorSlice = createSlice({
   name: "doctor",
   initialState: {
-    doctor: null,
+    doctorById: null,
     doctors: [],
     loading: false,
     error: null,
     profile: null,
+    availability: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -93,13 +107,27 @@ export const doctorSlice = createSlice({
       })
       .addCase(getDoctorByID.fulfilled, (state, action) => {
         state.loading = false;
-        state.doctor = action.payload.doctor;
+        state.doctorById = action.payload;
         state.error = null;
       })
       .addCase(getDoctorByID.rejected, (state, action) => {
         state.error = action.payload;
         state.loading = false;
-        state.doctor = null;
+        state.doctorById = null;
+      })
+      .addCase(addAvailability.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addAvailability.fulfilled, (state, action) => {
+        state.loading = false;
+        state.availability = action.payload;
+        state.error = null;
+      })
+      .addCase(addAvailability.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+        state.availability = null;
       });
   },
 });

@@ -35,7 +35,7 @@ export const HomePage = () => {
               <p>Doctor Selection</p>
             </div>
             <div className="feature-card">
-              <h1>Psychritic Treatment With GPT</h1>
+              <h1>Psychiatrist Treatment With GPT</h1>
               <p>GPT IS HERE FOR YOU</p>
             </div>
             <div className="feature-card">
@@ -54,7 +54,9 @@ export const HomePage = () => {
                 <img src={DoctorImage} alt="doctor image" />
                 <h1>{doctor.fullName || "Hello World"}</h1>
                 <p>{doctor.specializations || "SeD"}</p>
-                <button>More Info</button>
+                <button onClick={() => navigate(`doctor/${doctor._id}`)}>
+                  More Info
+                </button>
               </div>
             ))}
 

@@ -1,0 +1,67 @@
+.patient-info-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 5px;
+    z-index: 10;
+    padding: 32px;
+    border-radius: 10px;
+  }
+  .popup-open {
+    filter: blur(5px); /* adjust blur amount as desired */
+    -webkit-filter: blur(5px); /* for older webkit browsers */
+  }
+  
+  .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  .popup-header h3 {
+    /* font-size: 18px; */
+    margin: 0;
+    text-align: center;
+    width: 100%;
+  }
+.close-btn{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.doctor-btn {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+  .close-btn button,.doctor-btn button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: black;
+    border: 1px solid wheat;
+  }
+  
+  .popup-content {
+  
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.8); 
+  }
+  
+  .popup-content li {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  

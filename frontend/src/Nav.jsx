@@ -49,18 +49,19 @@ export const Nav = () => {
       <div className="nav-options">
         <NavLink to="/">
           {" "}
-          <h1 className="logo">Health</h1>
+          <h1 className="logo">MediConnect</h1>
         </NavLink>
         {user === "doctor" ? (
-          <NavLink to={"/create-profile"}>Add your details</NavLink>
+          <NavLink to={"/add-availability"}>Add Availability</NavLink>
         ) : (
           <NavLink to={"/book-consultation"}>Book Consultation</NavLink>
         )}
         {user === "doctor" ? (
           <NavLink to={"/orders"}>Orders</NavLink>
         ) : (
-          <NavLink to={"/orders"}>Orders</NavLink>
+          <NavLink to={"/user-orders"}>Orders</NavLink>
         )}
+        {user === "doctor" && <NavLink to={"/add-key"}>Add GPT Key</NavLink>}
         {/* <h1>Choose Doctor</h1>
         <h1>My Orders</h1> */}
       </div>

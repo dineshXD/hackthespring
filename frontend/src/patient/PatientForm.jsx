@@ -28,6 +28,7 @@ export const PatientForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const order = useSelector((state) => state.order?.orderBooked);
+  const [isLoading, setIsLoading] = useState(false);
   const steps = useMemo(
     () => [
       <SelectDoctor setSelectedDoctorID={setSelectedDoctorID} />,
@@ -72,18 +73,7 @@ export const PatientForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({
-      selectedDoctorID,
-      email,
-      fullName,
-      age,
-      gender,
-      contactNumber,
-      medicalHistory,
-      currentSymptoms,
-      ongoingMedicine,
-      vitalSigns,
-    });
+    setIsLoading(true);
     try {
       await dispatch(
         bookConsultation({
@@ -99,14 +89,15 @@ export const PatientForm = () => {
           vitalSigns,
         })
       );
-      console.log(order);
-      if (order?.status === "success") {
-        navigate("/", { replace: true });
-      }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
+  if (!isLoading && order?.status === "success") {
+    navigate("/", { replace: true });
+  }
   return (
     <>
       <Nav />

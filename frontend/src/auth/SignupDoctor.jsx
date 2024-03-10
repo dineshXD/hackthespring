@@ -36,8 +36,8 @@ export const SignupDoctor = () => {
       <div className="auth-form">
         <div className="signup-form">
           <div className="auth-heading">
-            <h1>Welcome to Medtech!</h1>
-            <p>Please sign up to continue.</p>
+            <h1>Welcome to Medtech Doctor!</h1>
+            <p>Please sign up to continu.</p>
           </div>
           <form className="form-fields" onSubmit={submitLogin}>
             <div className="form-field">

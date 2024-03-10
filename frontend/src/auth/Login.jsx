@@ -57,12 +57,7 @@ export const Login = () => {
             <p style={{ textAlign: "center" }}>
               Are u new user? <NavLink to="/signup">sign up here</NavLink>
             </p>
-            <p style={{ textAlign: "center", textDecoration: "underline" }}>
-              OR
-            </p>
-            <p style={{ textAlign: "center" }}>
-              Are u doctor? <NavLink to="/login-doctor">login here</NavLink>
-            </p>
+
             {error && <p>{error.message}</p>}
           </form>
         </div>

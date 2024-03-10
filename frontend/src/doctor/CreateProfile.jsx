@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "./createprofile.css";
 import { useDispatch, useSelector } from "react-redux";
 import { createDoctorProfile } from "../state/doctorSlice";
+import { Nav } from "../Nav";
 export const CreateProfile = () => {
   const [specializations, setSpecializations] = useState("");
   const [location, setLocation] = useState("");
@@ -42,6 +43,7 @@ export const CreateProfile = () => {
   }, [isLoggedIn]);
   return (
     <>
+      <Nav />
       <div className="createprofile-form">
         <div className="profile-form">
           <div className="profile-heading">

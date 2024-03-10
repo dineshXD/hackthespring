@@ -3,11 +3,7 @@ import Order from "../models/orderModel";
 import { AuthenticatedRequest } from "./authController";
 import { User } from "../models/userModel";
 import mongoose from "mongoose";
-import {
-  GoogleGenerativeAI,
-  HarmBlockThreshold,
-  HarmCategory,
-} from "@google/generative-ai";
+
 export const getMyOrders = async (req: AuthenticatedRequest, res: Response) => {
   try {
     const doctorID = req.user._id;
@@ -74,6 +70,41 @@ export const getUserOrders = async (
     results: orders.length,
     orders,
   });
+};
+export const updateOrderStatus = async (req: Request, res: Response) => {
+  const { orderId, status } = req.body;
+  if (!orderId || !status) {
+    return res.status(404).json({
+      status: "failed",
+      message: "Please include all the fields",
+    });
+  }
+
+  if (!["approved", "rejected"].includes(status)) {
+    return res
+      .status(400)
+      .json({ status: "failed", message: "Invalid status" });
+  }
+  try {
+    const updateStatus = await Order.findByIdAndUpdate(
+      orderId,
+      { $set: { status: status } },
+      { new: true }
+    );
+    if (!updateStatus) {
+      return res
+        .status(404)
+        .json({ status: "failed", message: "order not found" });
+    }
+    return res.status(200).json({
+      status: "success",
+      message: "order status updated successfully",
+      updateStatus,
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
 export const bookConsultation = async (
   req: AuthenticatedRequest,
@@ -162,62 +193,5 @@ export const bookConsultation = async (
       status: "failed",
       message: "Internal server error",
     });
-  }
-};
-export const generateGPTResponse = async (req: Request, res: Response) => {
-  const {
-    fullName,
-    medicalHistory,
-    currentSymptoms,
-    ongoingMedicine,
-    vitalSigns,
-  } = req.body;
-
-  const genAI = new GoogleGenerativeAI(process.env.GPT_API_KEY);
-  const safetySettings = [
-    {
-      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-      threshold: HarmBlockThreshold.BLOCK_NONE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-      threshold: HarmBlockThreshold.BLOCK_NONE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-      threshold: HarmBlockThreshold.BLOCK_NONE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-      threshold: HarmBlockThreshold.BLOCK_NONE,
-    },
-  ];
-
-  const model = genAI.getGenerativeModel({
-    model: "gemini-pro",
-    safetySettings: safetySettings,
-  });
-  const prompt = `Hi My Name is ${fullName} and i am 23 years old and i have history of ${medicalHistory} and now my current symptoms are ${currentSymptoms} and i am currently taking ${ongoingMedicine} and my vital signs are ${vitalSigns}`;
-  try {
-    const result = await model.generateContentStream(`
-    Before responding make sure to follow to these
-    1. You are LLM that is designed to help the doctors to get the automated insights, potential diagnoses, and treatment suggestions based on patient information.
-    2. if any one ask how to kill someone using medicine or If you feel like you are being abused or harassed or someone asks you about something illegal respond with
-    I cant help you with that and I are not designed to help with the request
-    3. Remember you are supportive tool for doctors to get help in diagnosing the patient.
-    4. you need to generate personalized insights, potential diagnoses, and treatment suggestions and provide that to doctor.
-    4. Make sure to follow the above rules
-    ${prompt}
-  
-    `);
-    const data = await result.response;
-    return res.status(200).json({
-      status: "success",
-      message: "response generated successfully",
-      // output: data[0].content.parts[0].text,
-      output: data,
-    });
-  } catch (error) {
-    console.log("gpt response error", error);
   }
 };

@@ -1,0 +1,86 @@
+.chat-screen {
+    display: flex;
+    flex-direction: column;
+    height: 82vh;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .message-list {
+    flex: 1;
+    overflow-y: scroll;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .message {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .doctor {
+    background-color: #ddd;
+    color: #333;
+  }
+  
+  .patient {
+    background-color: #eee;
+    color: #666;
+  }
+  
+  .message-input {
+    display: flex;
+    align-items: center;
+  }
+  
+  .message-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .message-input button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+  }
+  
+  /* ... (other styles) */
+
+.message-list {
+    /* ... (other styles) */
+    display: flex; /* Add flexbox */
+    flex-direction: column; /* Stack messages vertically */
+  }
+  
+  .message {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    max-width: 70%; /* Limit message width */
+    word-break: break-word; /* Allow text wrapping */
+  }
+  
+  .doctor {
+    background-color: #ddd;
+    color: #333;
+    align-self: flex-start; /* Align to the left */
+  }
+  
+  .patient {
+    background-color: #eee;
+    color: #666;
+    align-self: flex-end; /* Align to the right */
+  }
+  
+  /* ... (other styles) */
+  

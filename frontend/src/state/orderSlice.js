@@ -4,6 +4,7 @@ import {
   generateGPTResponseAPI,
   getDoctorOrdersAPI,
   getUserOrdersAPI,
+  updateOrderStatusAPI,
 } from "../api/orderApi";
 export const getDoctorOrders = createAsyncThunk(
   "order/doctor-orders",
@@ -27,14 +28,34 @@ export const getUserOrders = createAsyncThunk(
     }
   }
 );
+export const updateOrderStatus = createAsyncThunk(
+  "order/update-order-status",
+  async ({ orderId, status }, { rejectWithValue }) => {
+    try {
+      const response = await updateOrderStatusAPI({ orderId, status });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 export const generateGPTResponse = createAsyncThunk(
   "orders/generate-gpt-response",
   async (
-    { fullName, medicalHistory, currentSymptoms, ongoingMedicine, vitalSigns },
+    {
+      orderId,
+      fullName,
+      medicalHistory,
+      currentSymptoms,
+      ongoingMedicine,
+      vitalSigns,
+    },
     { rejectWithValue }
   ) => {
     try {
+      console.log(orderId);
       const response = await generateGPTResponseAPI({
+        orderId,
         fullName,
         medicalHistory,
         currentSymptoms,
@@ -131,7 +152,7 @@ export const orderSlice = createSlice({
       })
       .addCase(getUserOrders.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.userOrders = action.payload;
+        state.userOrders = action.payload.orders;
         state.error = null;
       })
       .addCase(getUserOrders.rejected, (state, action) => {
@@ -152,6 +173,20 @@ export const orderSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
         state.gptResponse = null;
+      })
+      .addCase(updateOrderStatus.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateOrderStatus.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.orderBooked = action.payload;
+        state.error = null;
+      })
+      .addCase(updateOrderStatus.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        state.orderBooked = null;
       });
   },
 });

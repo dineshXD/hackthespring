@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  addAvailability,
   createDoctorProfile,
   getAllDoctors,
   getDoctorByID,
@@ -12,3 +13,4 @@ doctorRouter.get("/:id", getDoctorByID);
 doctorRouter.use(protect);
 doctorRouter.use(restrictTo("doctor"));
 doctorRouter.post("/create-profile", createDoctorProfile);
+doctorRouter.post("/add-availability", addAvailability);

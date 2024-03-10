@@ -3,6 +3,51 @@ import DoctorProfile from "../models/doctorProfileModel";
 import { AuthenticatedRequest } from "./authController";
 import { User } from "../models/userModel";
 import mongoose from "mongoose";
+export const addAvailability = async (
+  req: AuthenticatedRequest,
+  res: Response
+) => {
+  try {
+    const { availability } = req.body;
+    console.log(availability);
+    if (!availability) {
+      return res.status(404).json({
+        status: "success",
+        message: "Please provide all the fields",
+      });
+    }
+
+    const user = await User.findById(req.user?._id);
+    if (!user || user.role != "doctor") {
+      return res.status(401).json({
+        status: "failed",
+        message: "User not found",
+      });
+    }
+    const userId = req.user._id;
+
+    const updatedDoctor = await DoctorProfile.findOneAndUpdate(
+      // Replace with doctor ID retrieval logic
+      { userId: userId }, // Assuming doctor ID in user object
+      { $set: { availability } },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedDoctor) {
+      return res
+        .status(404)
+        .json({ status: "Failed", message: "Doctor not found" });
+    }
+    res.status(200).json({
+      status: "success",
+      message: "Availability updated successfully!",
+      doctor: updatedDoctor,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error updating availability" });
+  }
+};
 export const getAllDoctors = async (req: Request, res: Response) => {
   try {
     const doctors = await User.find({ role: "doctor" });
@@ -46,9 +91,13 @@ export const getDoctorByID = async (req: Request, res: Response) => {
         message: "User not found or not a doctor",
       });
     }
+    const doctorProfile = await DoctorProfile.findOne({
+      userId: doctor._id,
+    });
     return res.status(200).json({
       status: "success",
       doctor,
+      doctorProfile,
     });
   } catch (error) {
     console.log("error when finding user by id", error);
@@ -159,3 +208,23 @@ export const createDoctorProfile = async (
     });
   }
 };
+
+// export const addAvailability = async (req: Request, res: Response) => {
+//   const doctorId = req.params.doctorId;
+//   const { availability } = req.body;
+
+//   try {
+//     const doctor = await DoctorProfile.findById(doctorId);
+//     if (!doctor) {
+//       return res.status(404).json({ message: "Doctor not found" });
+//     }
+
+//     doctor.availability = availability;
+//     await doctor.save();
+
+//     res.json({ message: "Availability updated successfully" });
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// };

@@ -42,3 +42,16 @@ export const getDoctorAPI = async ({ id }) => {
     throw error;
   }
 };
+
+export const addAvailabilityAPI = async ({ availability }) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/api/v1/doctor/add-availability",
+      { availability },
+      { withCredentials: true }
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

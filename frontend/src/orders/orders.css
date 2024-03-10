@@ -4,7 +4,6 @@
     align-items: center;
     gap: 1rem;
     font-family: "Anta";
- 
 }
 .order{
     width: 100vw;
@@ -12,10 +11,19 @@
     justify-content: center;
     align-items: center;
 }
+.order-filter select{
+    padding: 18px 20px;
+    font-family: inherit;
+    font-size: 16px;
+}
 .order-heading{
-    text-align: center;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    text-align: center; 
     border-bottom: 1px solid wheat;
-    padding:1rem;
+    padding: 1rem;
+   
 }
 .order-data{
     border-bottom: 1px solid wheat;
@@ -27,7 +35,6 @@
     align-items: center;
     margin: 1rem;
     text-align: center;
-    
 }
 .patient-contact{
     display: flex;

@@ -5,6 +5,7 @@ import { getAllDoctors } from "../state/doctorSlice";
 import DoctorImage from "../assets/doctor.png";
 export const SelectDoctor = ({ setSelectedDoctorID }) => {
   const [selectedDoctor, setSelectedDoctor] = useState("");
+  const [doctorSelected, setDoctorSelected] = useState(false);
   const doctorSpecializations = [
     "Cardiology",
     "Dermatology",
@@ -32,6 +33,11 @@ export const SelectDoctor = ({ setSelectedDoctorID }) => {
     fetchDoctors();
   }, [dispatch]);
   const handleDoctorID = (id) => {
+    if (id) {
+      setDoctorSelected((prev) => !prev);
+    } else {
+      setDoctorSelected(false);
+    }
     setSelectedDoctorID(id);
   };
   return (
@@ -87,9 +93,15 @@ export const SelectDoctor = ({ setSelectedDoctorID }) => {
                           <img src={DoctorImage} alt="doctor image" />
                           <h1>{doctor.fullName || "Hello World"}</h1>
                           <p>{doctor.specializations || "SeD"}</p>
-                          <button>More Info</button>
+                          <button
+                            onClick={() => navigate(`/doctor/${doctor._id}`)}
+                          >
+                            More Info
+                          </button>
                           <button onClick={() => handleDoctorID(doctor._id)}>
-                            Select Doctor
+                            {doctorSelected
+                              ? "Doctor Selected"
+                              : "Select Doctor"}
                           </button>
                         </div>
                       ))}

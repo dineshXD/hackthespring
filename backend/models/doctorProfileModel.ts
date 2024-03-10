@@ -1,4 +1,9 @@
 import mongoose from "mongoose";
+const availabilitySlotSchema = new mongoose.Schema({
+  date: { type: Date, required: true },
+  startTime: { type: String, required: true },
+  endTime: { type: String, required: true },
+});
 
 const DoctorProfileSchema = new mongoose.Schema({
   userId: {
@@ -26,6 +31,10 @@ const DoctorProfileSchema = new mongoose.Schema({
     required: [true, "Please provide education details e.g. MBBS"],
   },
   bio: { type: String, required: [true, "Please tell me about yourself"] },
+  availability: {
+    type: [availabilitySlotSchema],
+    required: [true, "Doctor must have availabilty"],
+  },
 });
 const DoctorProfile = mongoose.model("DoctorProfile", DoctorProfileSchema);
 export default DoctorProfile;

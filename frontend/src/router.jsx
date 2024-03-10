@@ -7,6 +7,11 @@ import { CreateProfile } from "./doctor/CreateProfile";
 import { PatientForm } from "./patient/PatientForm";
 import { Orders } from "./orders/Orders";
 
+import { UserOrders } from "./orders/UserOrders";
+import { DoctorAvailabilityForm } from "./doctor/AddAvailabilty";
+import { AddKey } from "./doctor/Addkey";
+import { DoctorMoreInfo } from "./doctor/DoctorMoreInfo";
+
 const router = createBrowserRouter([
   {
     path: "login",
@@ -25,6 +30,10 @@ const router = createBrowserRouter([
     element: <CreateProfile />,
   },
   {
+    path: "/add-availability",
+    element: <DoctorAvailabilityForm />,
+  },
+  {
     path: "/",
     element: <App />,
   },
@@ -35,6 +44,25 @@ const router = createBrowserRouter([
   {
     path: "/orders",
     element: <Orders />,
+  },
+  {
+    path: "/user-orders",
+    element: <UserOrders />,
+  },
+  {
+    path: "/doctor/:id",
+    element: <DoctorMoreInfo />,
+  },
+  // {
+  //   path: "/chat",
+  //   children: [
+  //     { index: true, element: <ChatScreen /> },
+  //     { path: "/chat/:id", element: <PatientChat /> },
+  //   ],
+  // },
+  {
+    path: "/add-key",
+    element: <AddKey />,
   },
 ]);
 export default router;
